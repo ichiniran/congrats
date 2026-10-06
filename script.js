@@ -1,8 +1,8 @@
 // ========================================================
 // CONGRATULATIONS - MULTI-FRIEND PATH SYSTEM
 // Supports:
-// 1. Path URL: /kanom or /dew or /minnie
-// 2. Query URL: ?to=kanom or ?name=dew or ?to=minnie
+// 1. Path URL: /kanom or /dew or /minnie or /irene
+// 2. Query URL: ?to=kanom or ?to=irene or ?to=dew
 // ========================================================
 
 class MobileCelebrationExperience {
@@ -26,23 +26,32 @@ class MobileCelebrationExperience {
   }
 
   detectFriendId() {
-    // 1. Check URL Search Parameters (?to=minnie or ?name=dew or ?friend=somo)
+    // 1. Check URL Search Parameters (?to=irene or ?name=dew or ?friend=somo)
     const params = new URLSearchParams(window.location.search);
     const paramName = params.get('to') || params.get('name') || params.get('friend');
     if (paramName) {
       return paramName.trim().toLowerCase();
     }
 
-    // 2. Check path segments (for localhost/minnie or site.netlify.app/minnie)
+    // 2. Check path segments (e.g. site.com/congrats/irene or site.netlify.app/irene)
     const segments = window.location.pathname.split('/').filter(Boolean);
     if (segments.length > 0) {
       const last = segments[segments.length - 1];
-      if (last && last !== 'index.html' && !last.includes('.')) {
+      // Ignore root repository name or index.html
+      if (last && last !== 'index.html' && last !== 'congrats' && !last.includes('.')) {
         return last.trim().toLowerCase();
       }
     }
 
     return null;
+  }
+
+  getBasePath() {
+    let p = window.location.pathname;
+    if (!p.endsWith('/') && !p.endsWith('.html')) {
+      p += '/';
+    }
+    return p.replace(/[^\/]*$/, '');
   }
 
   setupFriendAssets() {
@@ -51,23 +60,31 @@ class MobileCelebrationExperience {
     // Update browser title
     document.title = `Congratulations 🎓🧸✨`;
 
-    const cacheBuster = '?v=' + Date.now();
-    const friendCardSrc = `assets/${this.friendId}/card.jpg${cacheBuster}`;
-    const friendPersonSrc = `assets/${this.friendId}/person.png${cacheBuster}`;
+    const base = this.getBasePath();
+    const cacheBuster = `?v=${Date.now()}`;
+    const friendCardSrc = `${base}assets/${this.friendId}/card.jpg${cacheBuster}`;
+    const friendPersonSrc = `${base}assets/${this.friendId}/person.png${cacheBuster}`;
 
     if (this.cardImg) {
       // Set to friend's card, fallback to default if not yet created
       this.cardImg.src = friendCardSrc;
       this.cardImg.onerror = () => {
-        this.cardImg.src = 'assets/card.jpg?v=2';
+        this.cardImg.src = `${base}assets/card.jpg?v=2`;
       };
     }
 
-    if (this.personImg) {
-      // Set to friend's cutout, fallback to default if not yet created
+    if (this.personImg && this.personCutout) {
+      // Set to friend's cutout
+      this.personCutout.style.display = 'block';
       this.personImg.src = friendPersonSrc;
       this.personImg.onerror = () => {
-        this.personImg.src = 'assets/person_cropped.png?v=2';
+        // If this friend does NOT have their own person.png cutout yet,
+        // DO NOT show Kanom's cutout on their card! Hide it so only their card shows!
+        if (this.friendId !== 'kanom') {
+          this.personCutout.style.display = 'none';
+        } else {
+          this.personImg.src = `${base}assets/person_cropped.png?v=2`;
+        }
       };
     }
   }
@@ -238,10 +255,12 @@ class MobileCelebrationExperience {
       this.ctx.shadowBlur = 10;
 
       if (p.isFourPointStar) {
+        // Draw 4-pointed sparkle star ✦
         this.ctx.translate(p.x, p.y);
         this.ctx.rotate(p.rotation);
         this.drawSparkleStar(this.ctx, 0, 0, 4, p.size, p.size * 0.26);
       } else {
+        // Soft glowing point
         this.ctx.beginPath();
         this.ctx.arc(p.x, p.y, p.size * 0.45, 0, Math.PI * 2);
         this.ctx.fill();
@@ -270,6 +289,7 @@ class MobileCelebrationExperience {
   playMagicChimeSound() {
     try {
       const ctx = this.getAudioContext();
+      // Ascending twinkling glockenspiel notes
       const notes = [1318.51, 1661.22, 1975.53, 2637.02];
       const now = ctx.currentTime;
 
@@ -291,7 +311,7 @@ class MobileCelebrationExperience {
         osc.start(startTime);
         osc.stop(startTime + duration);
       });
-    } catch (e) { }
+    } catch (e) {}
   }
 
   playPopNote() {
@@ -311,7 +331,7 @@ class MobileCelebrationExperience {
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 0.12);
-    } catch (e) { }
+    } catch (e) {}
   }
 }
 
