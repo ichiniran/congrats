@@ -51,14 +51,15 @@ class MobileCelebrationExperience {
     // Update browser title
     document.title = `Congratulations ${this.friendId.toUpperCase()}! 🎓`;
 
-    const friendCardSrc = `assets/${this.friendId}/card.jpg`;
-    const friendPersonSrc = `assets/${this.friendId}/person.png`;
+    const cacheBuster = '?v=' + Date.now();
+    const friendCardSrc = `assets/${this.friendId}/card.jpg${cacheBuster}`;
+    const friendPersonSrc = `assets/${this.friendId}/person.png${cacheBuster}`;
 
     if (this.cardImg) {
       // Set to friend's card, fallback to default if not yet created
       this.cardImg.src = friendCardSrc;
       this.cardImg.onerror = () => {
-        this.cardImg.src = 'assets/card.jpg';
+        this.cardImg.src = 'assets/card.jpg?v=2';
       };
     }
 
@@ -66,7 +67,7 @@ class MobileCelebrationExperience {
       // Set to friend's cutout, fallback to default if not yet created
       this.personImg.src = friendPersonSrc;
       this.personImg.onerror = () => {
-        this.personImg.src = 'assets/person_cropped.png';
+        this.personImg.src = 'assets/person_cropped.png?v=2';
       };
     }
   }

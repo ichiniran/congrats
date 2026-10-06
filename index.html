@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Congratulations Kanom! 🎓</title>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Congratulations</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <!-- Canvas for White Sparkling Star Particles -->
   <canvas id="stars-canvas" class="stars-canvas"></canvas>
@@ -13,23 +16,25 @@
   <!-- Mobile Viewport Container (9:16 Aspect Ratio) -->
   <div class="mobile-viewport-container">
     <div class="mobile-phone-frame">
-      
+
       <!-- SCREEN 1: First Page (หนูใส่หมวก + Tap Here) -->
       <div id="stage-1" class="screen-stage stage-active">
         <img src="assets/first_page.jpg" alt="Cover Page" class="screen-bg-img" draggable="false">
-        
+
         <!-- Interactive Floating Doll -->
-        <div id="doll-click-target" class="doll-interactive-wrap" role="button" tabindex="0" title="แตะที่ตัวหนูเพื่อเปิด">
+        <div id="doll-click-target" class="doll-interactive-wrap" role="button" tabindex="0"
+          title="แตะที่ตัวหนูเพื่อเปิด">
           <img src="assets/doll.png" alt="Graduation Doll" class="doll-animated-img" draggable="false">
         </div>
       </div>
 
       <!-- SCREEN 2: Card Page (การ์ด + คนดุกดิ๊กได้) -->
       <div id="stage-2" class="screen-stage stage-hidden">
-        <img src="assets/card.jpg" alt="Graduation Card" class="screen-bg-img" draggable="false">
-        
+        <img src="assets/card.jpg?v=2" alt="Graduation Card" class="screen-bg-img" draggable="false">
+
         <!-- Wiggling Person Cutout (คนดุกดิ๊กได้) -->
-        <div id="person-cutout" class="person-wiggle-wrap wiggle-person" role="button" tabindex="0" title="แตะให้ดุกดิ๊ก!">
+        <div id="person-cutout" class="person-wiggle-wrap wiggle-person" role="button" tabindex="0"
+          title="แตะให้ดุกดิ๊ก!">
           <img src="assets/person_cropped.png" alt="Kanom Graduate" class="person-animated-img" draggable="false">
         </div>
       </div>
@@ -39,4 +44,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
