@@ -1,9 +1,8 @@
 // ========================================================
 // CONGRATULATIONS - MULTI-FRIEND PATH SYSTEM
 // Supports:
-// 1. Path URL: http://localhost:3000/kanom or /dew
-// 2. Query URL: http://localhost:3000/?to=kanom or ?name=dew
-// 3. Fallback to default card if no name specified
+// 1. Path URL: /kanom or /dew or /minnie
+// 2. Query URL: ?to=kanom or ?name=dew or ?to=minnie
 // ========================================================
 
 class MobileCelebrationExperience {
@@ -27,18 +26,17 @@ class MobileCelebrationExperience {
   }
 
   detectFriendId() {
-    // 1. Check URL Search Parameters (?to=kanom or ?name=dew or ?friend=somo)
+    // 1. Check URL Search Parameters (?to=minnie or ?name=dew or ?friend=somo)
     const params = new URLSearchParams(window.location.search);
     const paramName = params.get('to') || params.get('name') || params.get('friend');
     if (paramName) {
       return paramName.trim().toLowerCase();
     }
 
-    // 2. Check path segments (for localhost/dew or username.github.io/repo/dew)
+    // 2. Check path segments (for localhost/minnie or site.netlify.app/minnie)
     const segments = window.location.pathname.split('/').filter(Boolean);
     if (segments.length > 0) {
       const last = segments[segments.length - 1];
-      // Ignore repository root or index.html
       if (last && last !== 'index.html' && !last.includes('.')) {
         return last.trim().toLowerCase();
       }
@@ -53,23 +51,24 @@ class MobileCelebrationExperience {
     // Update browser title
     document.title = `Congratulations ${this.friendId.toUpperCase()}! 🎓`;
 
-    // Try friend-specific card image
     const friendCardSrc = `assets/${this.friendId}/card.jpg`;
     const friendPersonSrc = `assets/${this.friendId}/person.png`;
 
-    // Check if friend card exists; if not, fall back to default assets/card.jpg
-    const testImg = new Image();
-    testImg.onload = () => {
-      if (this.cardImg) this.cardImg.src = friendCardSrc;
-    };
-    testImg.src = friendCardSrc;
+    if (this.cardImg) {
+      // Set to friend's card, fallback to default if not yet created
+      this.cardImg.src = friendCardSrc;
+      this.cardImg.onerror = () => {
+        this.cardImg.src = 'assets/card.jpg';
+      };
+    }
 
-    // Check if friend person cutout exists
-    const testPerson = new Image();
-    testPerson.onload = () => {
-      if (this.personImg) this.personImg.src = friendPersonSrc;
-    };
-    testPerson.src = friendPersonSrc;
+    if (this.personImg) {
+      // Set to friend's cutout, fallback to default if not yet created
+      this.personImg.src = friendPersonSrc;
+      this.personImg.onerror = () => {
+        this.personImg.src = 'assets/person_cropped.png';
+      };
+    }
   }
 
   init() {
@@ -316,5 +315,5 @@ class MobileCelebrationExperience {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new MobileCelebrationExperience();
+  window.app = new MobileCelebrationExperience();
 });
