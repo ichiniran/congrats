@@ -67,7 +67,7 @@ class MobileCelebrationExperience {
     if (this.friendId === 'airin' || this.friendId === 'irene') {
       const folder = this.friendId === 'airin' ? 'airin' : 'irene';
       const airinCardSrc = `${base}assets/${folder}/AirinCard.jpg${cacheBuster}`;
-      const airinPersonSrc = `${base}assets/${folder}/${this.friendId === 'airin' ? 'airin.png' : 'irene.png'}${cacheBuster}`;
+      const airinPersonSrc = `${base}assets/${folder}/irene.png${cacheBuster}`;
 
       if (this.cardImg) {
         this.cardImg.src = airinCardSrc;
