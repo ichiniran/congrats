@@ -78,7 +78,7 @@ class MobileCelebrationExperience {
 
       if (this.personCutout && this.personImg) {
         this.personCutout.style.display = 'block';
-        this.personCutout.style.left = '50.5%';
+        this.personCutout.style.left = '43.5%';
         this.personCutout.style.top = '32.3%';
         this.personCutout.style.width = '48.4%';
         this.personCutout.classList.remove('wiggle-person');
