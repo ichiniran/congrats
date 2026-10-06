@@ -63,13 +63,17 @@ class MobileCelebrationExperience {
     const base = this.getBasePath();
     const cacheBuster = `?v=${Date.now()}`;
 
-    // Custom configuration for Irene
-    if (this.friendId === 'irene') {
-      const ireneCardSrc = `${base}assets/irene/irenecard.jpg${cacheBuster}`;
-      const irenePersonSrc = `${base}assets/irene/irene.png${cacheBuster}`;
+    // Custom configuration for Airin / Irene
+    if (this.friendId === 'airin' || this.friendId === 'irene') {
+      const folder = this.friendId === 'airin' ? 'airin' : 'irene';
+      const airinCardSrc = `${base}assets/${folder}/AirinCard.jpg${cacheBuster}`;
+      const airinPersonSrc = `${base}assets/${folder}/${this.friendId === 'airin' ? 'airin.png' : 'irene.png'}${cacheBuster}`;
 
       if (this.cardImg) {
-        this.cardImg.src = ireneCardSrc;
+        this.cardImg.src = airinCardSrc;
+        this.cardImg.onerror = () => {
+          this.cardImg.src = `${base}assets/irene/AirinCard.jpg${cacheBuster}`;
+        };
       }
 
       if (this.personCutout && this.personImg) {
@@ -79,7 +83,10 @@ class MobileCelebrationExperience {
         this.personCutout.style.width = '48.4%';
         this.personCutout.classList.remove('wiggle-person');
         this.personCutout.classList.add('wiggle-gentle'); // ไม่ต้องขยับเยอะมาก
-        this.personImg.src = irenePersonSrc;
+        this.personImg.src = airinPersonSrc;
+        this.personImg.onerror = () => {
+          this.personImg.src = `${base}assets/irene/irene.png${cacheBuster}`;
+        };
       }
       return;
     }
@@ -335,7 +342,7 @@ class MobileCelebrationExperience {
         osc.start(startTime);
         osc.stop(startTime + duration);
       });
-    } catch (e) {}
+    } catch (e) { }
   }
 
   playPopNote() {
@@ -355,7 +362,7 @@ class MobileCelebrationExperience {
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 0.12);
-    } catch (e) {}
+    } catch (e) { }
   }
 }
 
