@@ -49,7 +49,7 @@ class MobileCelebrationExperience {
     if (!this.friendId) return;
 
     // Update browser title
-    document.title = `Congratulations ${this.friendId.toUpperCase()}! 🎓`;
+    document.title = `Congratulations 🎓`;
 
     const cacheBuster = '?v=' + Date.now();
     const friendCardSrc = `assets/${this.friendId}/card.jpg${cacheBuster}`;
