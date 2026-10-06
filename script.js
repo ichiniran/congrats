@@ -49,7 +49,7 @@ class MobileCelebrationExperience {
     if (!this.friendId) return;
 
     // Update browser title
-    document.title = `Congratulations 🎓`;
+    document.title = `Congratulations 🎓🧸✨`;
 
     const cacheBuster = '?v=' + Date.now();
     const friendCardSrc = `assets/${this.friendId}/card.jpg${cacheBuster}`;
@@ -291,7 +291,7 @@ class MobileCelebrationExperience {
         osc.start(startTime);
         osc.stop(startTime + duration);
       });
-    } catch (e) {}
+    } catch (e) { }
   }
 
   playPopNote() {
@@ -311,7 +311,7 @@ class MobileCelebrationExperience {
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 0.12);
-    } catch (e) {}
+    } catch (e) { }
   }
 }
 
