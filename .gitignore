@@ -1,0 +1,5 @@
+# Local server files (optional)
+server.js
+start.bat
+.DS_Store
+Thumbs.db

@@ -1,0 +1,235 @@
+/* ========================================================
+   CONGRATULATIONS KANOM - MOBILE FORMAT STYLESHEET
+   Clean Minimalist Aesthetic - Seamless Card Color (#fffcf5)
+   ======================================================== */
+
+:root {
+  --bg-card-exact: #fffcf5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-card-exact);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Star Particles Fullscreen Canvas */
+.stars-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Mobile Viewport Container */
+.mobile-viewport-container {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background-color: var(--bg-card-exact);
+}
+
+/* Mobile Phone Frame (9:16 Ratio - Seamless without shadows) */
+.mobile-phone-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 440px;
+  max-height: 100dvh;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background-color: var(--bg-card-exact);
+  box-shadow: none;
+  border: none;
+}
+
+@media (min-width: 520px) {
+  .mobile-phone-frame {
+    height: min(94vh, 880px);
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+  }
+}
+
+/* Screen Stages */
+.screen-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  background-color: var(--bg-card-exact);
+}
+
+.stage-active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.stage-hidden {
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Background image filling mobile frame */
+.screen-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ========================================================
+   SCREEN 1: DOLL INTERACTION (ตัวเล็กลง ละมุนตา ไร้เงา)
+   ======================================================== */
+.doll-interactive-wrap {
+  position: absolute;
+  top: 41.5%;
+  left: 50%;
+  width: 47%; /* ขนาดกะทัดรัด ตัวเล็กลง น่ารักพอดี */
+  transform: translate(-50%, 0);
+  cursor: pointer;
+  z-index: 5;
+  user-select: none;
+  outline: none;
+  animation: dollFloat 3.2s infinite ease-in-out;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.doll-animated-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: none; /* ไม่มีเงาตามที่ขอ */
+}
+
+.doll-interactive-wrap:hover {
+  transform: translate(-50%, -5px) scale(1.05);
+}
+
+.doll-interactive-wrap:active {
+  transform: translate(-50%, 0) scale(0.96);
+}
+
+/* Doll Pop Out Animation when tapped */
+.doll-interactive-wrap.pop-out {
+  animation: dollPopOut 0.7s forwards cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+@keyframes dollFloat {
+  0%, 100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -6px);
+  }
+}
+
+@keyframes dollPopOut {
+  0% {
+    transform: translate(-50%, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  30% {
+    transform: translate(-50%, -14px) scale(1.18) rotate(-4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -35px) scale(0.55) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+/* ========================================================
+   SCREEN 2: WIGGLING PERSON CUTOUT
+   ======================================================== */
+.person-wiggle-wrap {
+  position: absolute;
+  left: 47.2%;
+  top: 40.6%;
+  width: 45.4%;
+  cursor: pointer;
+  z-index: 5;
+  user-select: none;
+  outline: none;
+  transform-origin: 50% 82%; /* Natural swaying from sitting base */
+}
+
+.person-animated-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: none; /* ไร้เงา */
+}
+
+/* Gentle Cute Natural Wiggle Animation */
+@keyframes personWiggle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  20% {
+    transform: rotate(-3.5deg) translateY(-2px) scale(1.01);
+  }
+  40% {
+    transform: rotate(3deg) translateY(-1px) scale(1.02);
+  }
+  60% {
+    transform: rotate(-2deg) translateY(-2px) scale(1.01);
+  }
+  80% {
+    transform: rotate(1.5deg) translateY(0) scale(1);
+  }
+}
+
+/* Fast Cheerful Wiggle on Tap/Click */
+@keyframes personHappyWiggle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1.05);
+  }
+  25% {
+    transform: rotate(-6deg) scale(1.08);
+  }
+  75% {
+    transform: rotate(6deg) scale(1.08);
+  }
+}
+
+.wiggle-person {
+  animation: personWiggle 3.2s infinite ease-in-out;
+  transition: transform 0.2s ease;
+}
+
+.wiggle-person:hover,
+.wiggle-person:active,
+.wiggle-person.active-wiggle {
+  animation: personHappyWiggle 0.4s infinite ease-in-out;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>กำลังเปิดการ์ด... 🎓</title>
+  <script>
+    // GitHub Pages SPA Redirect Helper
+    (function() {
+      var segments = window.location.pathname.split('/').filter(Boolean);
+      // If deployed on https://<username>.github.io/<repo>/<friend>
+      // segments = ['<repo>', '<friend>']
+      if (segments.length >= 2) {
+        var repo = segments[0];
+        var friend = segments[segments.length - 1];
+        window.location.replace('/' + repo + '/?to=' + encodeURIComponent(friend));
+      } else if (segments.length === 1) {
+        // e.g. custom domain https://example.com/<friend>
+        var friend = segments[0];
+        window.location.replace('/?to=' + encodeURIComponent(friend));
+      } else {
+        window.location.replace('/');
+      }
+    })();
+  </script>
+</head>
+<body style="background-color: #fffcf5; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: sans-serif; color: #736d67;">
+  <p>กำลังเปิดคำอวยพร... 🎓</p>
+</body>
+</html>
