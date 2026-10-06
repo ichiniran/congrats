@@ -233,3 +233,27 @@ body {
 .wiggle-person.active-wiggle {
   animation: personHappyWiggle 0.4s infinite ease-in-out;
 }
+
+/* Gentle Micro-Animation for Irene (ไม่ขยับเยอะตามที่ขอ) */
+@keyframes personGentleWiggle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  30% {
+    transform: rotate(-0.8deg) translateY(-1px);
+  }
+  70% {
+    transform: rotate(0.8deg) translateY(0);
+  }
+}
+
+.wiggle-gentle {
+  animation: personGentleWiggle 4.5s infinite ease-in-out !important;
+  transform-origin: 50% 90%;
+}
+
+.wiggle-gentle:hover,
+.wiggle-gentle:active,
+.wiggle-gentle.active-wiggle {
+  animation: personGentleWiggle 2s infinite ease-in-out !important;
+}

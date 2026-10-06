@@ -62,11 +62,33 @@ class MobileCelebrationExperience {
 
     const base = this.getBasePath();
     const cacheBuster = `?v=${Date.now()}`;
+
+    // Custom configuration for Irene
+    if (this.friendId === 'irene') {
+      const ireneCardSrc = `${base}assets/irene/irenecard.jpg${cacheBuster}`;
+      const irenePersonSrc = `${base}assets/irene/irene.png${cacheBuster}`;
+
+      if (this.cardImg) {
+        this.cardImg.src = ireneCardSrc;
+      }
+
+      if (this.personCutout && this.personImg) {
+        this.personCutout.style.display = 'block';
+        this.personCutout.style.left = '39.5%';
+        this.personCutout.style.top = '32.3%';
+        this.personCutout.style.width = '48.4%';
+        this.personCutout.classList.remove('wiggle-person');
+        this.personCutout.classList.add('wiggle-gentle'); // ไม่ต้องขยับเยอะมาก
+        this.personImg.src = irenePersonSrc;
+      }
+      return;
+    }
+
+    // Default configuration for Kanom and other friends
     const friendCardSrc = `${base}assets/${this.friendId}/card.jpg${cacheBuster}`;
     const friendPersonSrc = `${base}assets/${this.friendId}/person.png${cacheBuster}`;
 
     if (this.cardImg) {
-      // Set to friend's card, fallback to default if not yet created
       this.cardImg.src = friendCardSrc;
       this.cardImg.onerror = () => {
         this.cardImg.src = `${base}assets/card.jpg?v=2`;
@@ -74,12 +96,14 @@ class MobileCelebrationExperience {
     }
 
     if (this.personImg && this.personCutout) {
-      // Set to friend's cutout
       this.personCutout.style.display = 'block';
+      this.personCutout.style.left = '47.2%';
+      this.personCutout.style.top = '40.6%';
+      this.personCutout.style.width = '45.4%';
+      this.personCutout.classList.remove('wiggle-gentle');
+      this.personCutout.classList.add('wiggle-person');
       this.personImg.src = friendPersonSrc;
       this.personImg.onerror = () => {
-        // If this friend does NOT have their own person.png cutout yet,
-        // DO NOT show Kanom's cutout on their card! Hide it so only their card shows!
         if (this.friendId !== 'kanom') {
           this.personCutout.style.display = 'none';
         } else {
